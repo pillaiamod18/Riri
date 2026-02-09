@@ -139,19 +139,18 @@
   <div class="music-note" id="musicBtn">🎵</div>
 
   <div class="card" id="card">
-    <img src="photo1.jpg" alt="Us" class="photo" />
+    <img src="photo1.jpg" alt="Us" class="photo fade" id="memoryPhoto" />
 
-    <h1>Majhi Boondiiii 💕</h1>
-    <p>
-      Every moment with you feels like home to me.
-      <br><br>
-      Will you be my Valentine? 🌹
+    <h1 id="title">My Favorite Person 💕</h1>
+    <p id="memoryText">
+      This is where my comfort began.
     </p>
 
     <div class="buttons">
       <button id="yes">YES 💖</button>
       <button id="no">No 🙈</button>
     </div>
+  </div>
   </div>
 
   <div class="hearts" id="hearts"></div>
@@ -163,6 +162,34 @@
     const hearts = document.getElementById('hearts');
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
+
+    const photos = [
+      { img: 'photo1.jpg', text: 'This is where my comfort began.' },
+      { img: 'photo2.jpg', text: 'Somehow, even silence felt perfect with you.' },
+      { img: 'photo3.jpg', text: 'You made ordinary days feel special.' },
+      { img: 'photo4.jpg', text: 'My favorite memories always have you in them.' },
+      { img: 'photo5.jpg', text: 'With you, I learned what safe really feels like.' },
+      { img: 'photo6.jpg', text: 'No matter where we go, you are my home.' },
+      { img: 'photo7.jpg', text: 'And this… this is my forever choice.' }
+    ];
+
+    let current = 0;
+    const memoryPhoto = document.getElementById('memoryPhoto');
+    const memoryText = document.getElementById('memoryText');
+
+    function nextMemory() {
+      current++;
+      if (current < photos.length) {
+        memoryPhoto.classList.remove('fade');
+        setTimeout(() => {
+          memoryPhoto.src = photos[current].img;
+          memoryText.innerText = photos[current].text;
+          memoryPhoto.classList.add('fade');
+        }, 200);
+      }
+    }
+
+    memoryPhoto.addEventListener('click', nextMemory);
 
     function moveNoButton() {
       const x = Math.random() * 240 - 120;
@@ -186,11 +213,11 @@
 
     yesBtn.addEventListener('click', () => {
       card.innerHTML = `
-        <img src="photo2.jpg" class="photo" />
-        <h1>YAY!! 💘</h1>
+        <img src="photo7.jpg" class="photo" />
+        <h1>She Said YES 💘</h1>
         <p>
-          You just made my heart the happiest 💕<br><br>
-          Happy Valentine's Day, my love 🥹🌹
+          Thank you for choosing me, today and always. 💕<br><br>
+          Happy Valentine’s Day, my love 🌹
         </p>
       `;
 
