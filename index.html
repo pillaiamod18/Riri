@@ -1,1 +1,277 @@
-<h1>TEST TEST TEST 💥</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Boondiiii 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:25px;
+  width:360px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  animation:pop 0.8s ease;
+  position:relative;
+  z-index:2;
+}
+@keyframes pop{from{transform:scale(0.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+h1{font-family:'Pacifico', cursive;color:#ff4d6d;margin-bottom:10px;}
+p{color:#555;font-size:0.9rem;line-height:1.6;margin-bottom: 15px;}
+
+.photo-stack{
+  width:100%;
+  height:200px;
+  position:relative;
+  margin-bottom:15px;
+  border-radius:16px;
+  overflow:hidden;
+  background: #fff5f6;
+}
+.photo-stack img{
+  width:100%;
+  height:100%;
+  object-fit: contain; 
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+.photo-stack img.active{opacity:1;}
+
+.question-text {
+  font-weight: 600;
+  color: #ff4d6d;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  gap:12px;
+}
+
+/* Fix for long option text alignment */
+.question-card .buttons {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 15px;
+}
+
+button{
+  padding:12px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  border:none;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  transition: 0.3s;
+}
+#yes{background:#ff4d6d;color:white; flex: 1;}
+#no {background: #eee; color: #555; flex: 1; position: relative; z-index: 10;}
+
+.music-btn{
+  position:fixed;bottom:20px;right:20px;background:white;
+  padding:10px 14px;border-radius:999px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+  cursor:pointer;font-size:20px;z-index:100;
+}
+
+.float{position:absolute; animation:floatUp 6s linear forwards; pointer-events:none; z-index:1;}
+@keyframes floatUp{
+  from{transform:translateY(0) scale(0.8) rotate(0deg);opacity:1;}
+  to{transform:translateY(-120vh) scale(1.5) rotate(720deg);opacity:0;}
+}
+
+.minion-container{width:80px; margin:0 auto 10px;}
+.minion-container img{width:100%; animation:floatMinion 4s ease-in-out infinite;}
+@keyframes floatMinion{0%, 100%{transform:translateY(0);} 50%{transform:translateY(-8px);}}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<div class="music-btn" id="musicBtn">🎵</div>
+
+<div class="card" id="card">
+  <div class="minion-container" id="minion-box">
+    <img id="minion" src="minion_sleep.gif" alt="Minion">
+  </div>
+
+  <div id="content-area">
+    <div class="photo-stack">
+      <img src="photo1.jpg" class="active">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
+      <img src="photo5.jpg">
+      <img src="photo6.jpg">
+      <img src="photo7.jpg">
+    </div>
+
+    <h1>Majhi Boondiiii 💕</h1>
+    <p>
+      They say home is a place but for me, it’s always been you. It’s in the way you never stop trying for us, how you choose to understand me every day and how you never once give up on me 
+      <br><br>
+      I don’t just love you for who you are but for the version of me that exists only when I'm with you. You're my favorite part of every single day.
+    </p>
+
+    <div class="question-text">Will you be my Valentine? 🌹</div>
+
+    <div class="buttons">
+      <button id="yes">YES 💖</button>
+      <button id="no">No 🙈</button>
+    </div>
+  </div>
+</div>
+
+<div id="hearts"></div>
+
+<script>
+// --- MUSIC LOGIC ---
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+function playMusic() { music.play().catch(() => {}); musicBtn.textContent = '🔊'; }
+document.addEventListener('click', () => { if(music.paused) playMusic(); }, {once: true});
+musicBtn.onclick = (e) => {
+  e.stopPropagation();
+  if (music.paused) { music.play(); musicBtn.textContent = '🔊'; }
+  else { music.pause(); musicBtn.textContent = '🎵'; }
+};
+
+// --- PHOTO SLIDESHOW ---
+const photos = document.querySelectorAll('.photo-stack img');
+let current = 0;
+setInterval(() => {
+  if(photos.length > 0) {
+    photos[current].classList.remove('active');
+    current = (current + 1) % photos.length;
+    photos[current].classList.add('active');
+  }
+}, 3000);
+
+// --- MINION GIF ROTATION ---
+const minionAnimations = ['minion_sleep.gif', 'minion_yawn.gif', 'minion_hug.gif', 'minion_dance.gif'];
+setInterval(() => {
+  const minionImg = document.getElementById('minion');
+  if (minionImg) {
+    let newGif = minionAnimations[Math.floor(Math.random() * minionAnimations.length)];
+    // The timestamp (?t=) ensures the GIF restarts/refreshes
+    minionImg.src = newGif + "?t=" + new Date().getTime();
+  }
+}, 1000);
+
+// --- NO BUTTON ESCAPE ---
+const noBtn = document.getElementById('no');
+function moveButton() {
+  noBtn.style.position = 'fixed';
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  noBtn.style.left = Math.max(padding, Math.floor(Math.random() * maxX)) + 'px';
+  noBtn.style.top = Math.max(padding, Math.floor(Math.random() * maxY)) + 'px';
+  noBtn.style.zIndex = "999";
+}
+noBtn.addEventListener('mouseover', moveButton);
+noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+
+// --- FLOATING HEARTS ---
+const creatures = ['💖','✨','💕','🌸'];
+function spawnCreature() {
+  const el = document.createElement('div');
+  el.className = 'float';
+  el.textContent = creatures[Math.floor(Math.random() * creatures.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.bottom = '-30px';
+  el.style.fontSize = 20 + Math.random() * 20 + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 6000);
+}
+setInterval(spawnCreature, 500);
+
+// --- YES CLICK & SURVEY ---
+const yesBtn = document.getElementById('yes');
+const card = document.getElementById('card');
+const contentArea = document.getElementById('content-area');
+
+yesBtn.onclick = () => {
+  playMusic();
+  const questions = [
+    {q:"Pick our Valentine’s Outfit Theme", options:["Black (Classic & Elegant)","White (Pure & Aesthetic)","Yellow (Bright & Happy)"]},
+    {q:"Where should we go?", options:["A Cozy Outdoor Date","A Quiet Indoor Dinner","A Playful Date"]},
+    {q:"What are we eating?", options:["Sushi/Asian","Pasta/Italian","Spiced/Indian"]}
+  ];
+  let answers = [];
+  
+  function showQuestion(index) {
+    // Only clear the content BELOW the minion
+    contentArea.innerHTML = '';
+    
+    // Change minion to hug/happy for questions
+    const mImg = document.getElementById('minion');
+    if(mImg) mImg.src = 'minion_hug.gif';
+
+    const qc = document.createElement('div');
+    qc.className = "question-card";
+    qc.innerHTML = `<h2 style="color:#ff4d6d; margin-bottom:15px; font-size:1.1rem;">${questions[index].q}</h2>`;
+    
+    const btnsContainer = document.createElement('div'); 
+    btnsContainer.className = "buttons";
+
+    questions[index].options.forEach(opt => {
+      const b = document.createElement('button');
+      b.textContent = opt;
+      b.style.background = '#ff4d6d';
+      b.style.color = 'white';
+      b.style.marginBottom = "5px";
+      b.onclick = () => {
+        answers.push(opt);
+        if(index + 1 < questions.length) showQuestion(index + 1);
+        else showFinal();
+      };
+      btnsContainer.appendChild(b);
+    });
+    qc.appendChild(btnsContainer);
+    contentArea.appendChild(qc);
+  }
+
+  function showFinal() {
+    contentArea.innerHTML = `
+      <h1 style="font-size:1.8rem;">I Love You! 💘</h1>
+      <p style="margin: 15px 0;">Everything is better when I'm with you. Here is our perfect date plan:</p>
+      <div style="text-align:left; background:#fff5f6; padding:15px; border-radius:12px; font-size: 0.85rem; color:#444; line-height: 1.8;">
+        <b>👗 Wear:</b> ${answers[0]}<br>
+        <b>📍 Place:</b> ${answers[1]}<br>
+        <b>🍝 Food:</b> ${answers[2]}
+      </div>
+      <p style="margin-top:20px; font-weight:600; color:#ff4d6d;">Send me a screenshot of this!<br>Can't wait to see you, Boondiiii❤️</p>
+    `;
+    const mImg = document.getElementById('minion');
+    if(mImg) mImg.src = 'minion_dance.gif';
+    for(let i=0; i<30; i++) setTimeout(spawnCreature, i*100);
+  }
+  showQuestion(0);
+};
+</script>
+</body>
+</html>
+>>>>>>> 72e677c (Update Valentine page: slideshow, minions, floating hearts, questionnaire)
